@@ -33,7 +33,7 @@ public class ExpenseTracker {
                 case 0:
                     break;
                 case 1:
-                    System.out.println("Type how much you spent: ");
+                    System.out.print("Type how much you spent: ");
                     double value = sc.nextDouble();
                     if (value > 0){
                         total += value;
@@ -47,10 +47,13 @@ public class ExpenseTracker {
                     }
                     break;
                 case 2:
+                    System.out.printf("Total R$ %.2f%n", total);
                     break;
                 case 3:
+                    System.out.printf("Highest expense: R$ %.2f%n", largest_expense);
                     break;
                 case 4:
+                    System.out.printf("Number of expenses: %d%n", count);
                     break;
 
                 default:
