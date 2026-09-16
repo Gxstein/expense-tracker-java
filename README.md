@@ -6,6 +6,7 @@ Personal expense tracker built in Java, planned to evolve from a console applica
 
 ## Roadmap
 
+- [ ] Version 0: Procedural console version (loops, conditionals, Scanner)
 - [ ] Version 1: Console application (pure Java, OOP and Collections)
 - [ ] Version 2: Database persistence (PostgreSQL + JDBC)
 - [ ] Version 3: REST API (Spring Boot, JPA, Security with JWT)
