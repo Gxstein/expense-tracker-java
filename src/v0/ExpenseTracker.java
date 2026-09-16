@@ -1,11 +1,18 @@
 package v0;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class ExpenseTracker {
     public static void main(String[] args) {
 
+        double total = 0;
+        double largest_expense = 0;
+        int count = 0;
+
         int select = 0;
+
+        Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
 
         System.out.println("--Welcome to your Expense Tracker--");
@@ -26,6 +33,18 @@ public class ExpenseTracker {
                 case 0:
                     break;
                 case 1:
+                    System.out.println("Type how much you spent: ");
+                    double value = sc.nextDouble();
+                    if (value > 0){
+                        total += value;
+                        count++;
+                        System.out.println("Expense added successfully!");
+                    }else if(value <= 0){
+                        System.out.println("Error adding expense!");
+                    }
+                    if (value > largest_expense){
+                        largest_expense = value;
+                    }
                     break;
                 case 2:
                     break;
