@@ -60,6 +60,10 @@ public class Program {
                     id++;
                     break;
                 case 2:
+                    System.out.print("Enter the expense id: ");
+                    Long removeId = sc.nextLong();
+                    expm.remove(removeId);
+                    System.out.println("Expense removed!");
                     break;
                 case 3:
                     break;
