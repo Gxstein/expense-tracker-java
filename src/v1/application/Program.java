@@ -41,6 +41,7 @@ public class Program {
 
             switch (select) {
                 case 0:
+                    System.out.println("Goodbye!");
                     break;
                 case 1:
                     System.out.print("Description: ");
@@ -66,6 +67,13 @@ public class Program {
                     System.out.println("Expense removed!");
                     break;
                 case 3:
+                    if (expm.listAll().isEmpty()) {
+                        System.out.println("No expenses registered.");
+                    } else {
+                        for (Expense e : expm.listAll()) {
+                            System.out.println(e);
+                        }
+                    }
                     break;
                 case 4:
                     break;

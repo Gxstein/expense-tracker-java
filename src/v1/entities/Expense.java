@@ -4,6 +4,7 @@ import v1.enums.Category;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Expense {
     private Long id;
@@ -62,4 +63,16 @@ public class Expense {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    @Override
+    public String toString() {
+        return id + " - "
+                + description + " - "
+                + amount + " - "
+                + date.format(FMT) + " - "
+                + category;
+    }
 }
+
