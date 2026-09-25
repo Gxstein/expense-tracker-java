@@ -1,0 +1,70 @@
+classDiagram
+    class ExpenseController {
+        <<RestController>>
+        -ExpenseService service
+        +create(ExpenseRequest request) ResponseEntity
+        +list() ResponseEntity
+        +findById(Long id) ResponseEntity
+        +update(Long id, ExpenseRequest request) ResponseEntity
+        +delete(Long id) ResponseEntity
+    }
+    class ExpenseService {
+        <<Service>>
+        -ExpenseRepository repository
+        +create(ExpenseRequest request) ExpenseResponse
+        +listByUser(Long userId) List~ExpenseResponse~
+        +calculateMonthlyTotal(int month, int year) BigDecimal
+        +update(Long id, ExpenseRequest request) ExpenseResponse
+        +delete(Long id) void
+    }
+    class ExpenseRequest {
+        <<record>>
+        String description
+        BigDecimal amount
+        LocalDate date
+        Category category
+    }
+    class ExpenseResponse {
+        <<record>>
+        Long id
+        String description
+        BigDecimal amount
+        LocalDate date
+        Category category
+    }
+    class ExpenseRepository {
+        <<interface>>
+        +findByUserId(Long userId) List~Expense~
+    }
+    class User {
+        <<Entity>>
+        -Long id
+        -String name
+        -String email
+        -String password
+    }
+    class Expense {
+        <<Entity>>
+        -Long id
+        -String description
+        -BigDecimal amount
+        -LocalDate date
+        -Category category
+        -User user
+    }
+    class Category {
+        <<enumeration>>
+        FOOD
+        TRANSPORT
+        HOUSING
+        LEISURE
+        HEALTH
+        OTHER
+    }
+    ExpenseController --> ExpenseService : uses
+    ExpenseController ..> ExpenseRequest : receives
+    ExpenseController ..> ExpenseResponse : returns
+    ExpenseService --> ExpenseRepository : uses
+    ExpenseRepository ..> Expense : manages
+    User "1" -- "*" Expense : owns
+    Expense --> Category : has

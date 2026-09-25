@@ -1,0 +1,32 @@
+classDiagram
+    class Program {
+        +main(String[] args) void
+    }
+    class ExpenseManager {
+        -List~Expense~ expenses
+        +add(Expense expense) void
+        +remove(Long id) void
+        +listAll() List~Expense~
+        +filterByMonth(int month, int year) List~Expense~
+        +calculateTotal() BigDecimal
+    }
+    class Expense {
+        -Long id
+        -String description
+        -BigDecimal amount
+        -LocalDate date
+        -Category category
+        +getters and setters
+    }
+    class Category {
+        <<enumeration>>
+        FOOD
+        TRANSPORT
+        HOUSING
+        LEISURE
+        HEALTH
+        OTHER
+    }
+    Program --> ExpenseManager : uses
+    ExpenseManager "1" o-- "*" Expense : stores
+    Expense --> Category : has

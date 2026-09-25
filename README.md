@@ -4,6 +4,8 @@ Personal expense tracker built in Java, planned to evolve from a console applica
 
 > 🚧 Project in development. This repository documents the plan and the progress of my studies.
 
+🇧🇷 [Versão em português](docs/pt-br/README.md)
+
 ## Roadmap
 
 - [x] Version 0: Procedural console version (loops, conditionals, Scanner)
@@ -13,15 +15,17 @@ Personal expense tracker built in Java, planned to evolve from a console applica
 
 ## Class Diagrams
 
+Diagram sources (Mermaid) are in [`docs/diagrams/src`](docs/diagrams/src).
+
 ### Version 1: Console
-![Version 1](docs/diagramas/diagrama-v1-console.png)
+![Version 1](docs/diagrams/v1-console.png)
 
 ### Version 2: Database (JDBC)
-![Version 2](docs/diagramas/diagrama-v2-jdbc.png)
+![Version 2](docs/diagrams/v2-jdbc.png)
 
 ### Version 3: Spring Boot REST API
-![Version 3](docs/diagramas/diagrama-v3-spring.png)
+![Version 3](docs/diagrams/v3-spring.png)
 
 ## Author
 
-Gxstein
+[Gxstein](https://github.com/Gxstein)

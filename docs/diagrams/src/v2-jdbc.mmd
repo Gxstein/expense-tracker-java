@@ -1,0 +1,55 @@
+classDiagram
+    class Program {
+        +main(String[] args) void
+    }
+    class ExpenseService {
+        -ExpenseDAO dao
+        +register(Expense expense) void
+        +listByMonth(int month, int year) List~Expense~
+        +calculateTotal() BigDecimal
+        +delete(Long id) void
+    }
+    class ExpenseDAO {
+        <<interface>>
+        +save(Expense expense) void
+        +findById(Long id) Expense
+        +findAll() List~Expense~
+        +update(Expense expense) void
+        +delete(Long id) void
+    }
+    class ExpenseDAOJdbc {
+        -DatabaseConnection connection
+        +save(Expense expense) void
+        +findById(Long id) Expense
+        +findAll() List~Expense~
+        +update(Expense expense) void
+        +delete(Long id) void
+    }
+    class DatabaseConnection {
+        -String url
+        -String user
+        -String password
+        +getConnection() Connection
+    }
+    class Expense {
+        -Long id
+        -String description
+        -BigDecimal amount
+        -LocalDate date
+        -Category category
+    }
+    class Category {
+        <<enumeration>>
+        FOOD
+        TRANSPORT
+        HOUSING
+        LEISURE
+        HEALTH
+        OTHER
+    }
+    Program --> ExpenseService : uses
+    ExpenseService --> ExpenseDAO : uses
+    ExpenseDAOJdbc ..|> ExpenseDAO : implements
+    ExpenseDAOJdbc --> DatabaseConnection : uses
+    ExpenseDAOJdbc --> Expense : saves
+    Expense --> Category : has
