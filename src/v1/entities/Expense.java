@@ -7,15 +7,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Expense {
+
+    // Shared date format used when printing expenses
+    private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     private Long id;
     private String description;
+    // BigDecimal avoids rounding errors with money values
     private BigDecimal amount;
     private LocalDate date;
     private Category category;
 
-    public Expense (){
-
+    public Expense() {
     }
+
     public Expense(Long id, String description, BigDecimal amount, LocalDate date, Category category) {
         this.id = id;
         this.description = description;
@@ -64,8 +69,6 @@ public class Expense {
         this.category = category;
     }
 
-    private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
     @Override
     public String toString() {
         return id + " - "
@@ -75,4 +78,3 @@ public class Expense {
                 + category;
     }
 }
-
