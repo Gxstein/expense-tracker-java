@@ -1,5 +1,6 @@
 package v1.entities;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,12 @@ public class ExpenseManager {
         return expenseMonthYear;
     }
 
-
+    public BigDecimal calculateTotal(){
+            BigDecimal total = BigDecimal.ZERO;
+                for(Expense e: expenses){
+                   total = total.add(e.getAmount());
+                }
+            return total;
+    }
 
 }
