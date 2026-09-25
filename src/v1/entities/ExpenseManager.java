@@ -27,4 +27,18 @@ public class ExpenseManager {
     public List<Expense> listAll(){
         return expenses;
     }
+
+    public List<Expense> filterByMonth(int month, int year) {
+        List<Expense> expenseMonthYear = new ArrayList<>();
+        for (Expense e: expenses) {
+            if (e.getDate().getMonthValue() == month && e.getDate().getYear() == year) {
+            expenseMonthYear.add(e);
+            }
+        }
+
+        return expenseMonthYear;
+    }
+
+
+
 }
