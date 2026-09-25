@@ -21,5 +21,10 @@ public class ExpenseManager {
             }
 
         }
+
+    }
+
+    public List<Expense> listAll(){
+        return expenses;
     }
 }
