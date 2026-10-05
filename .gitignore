@@ -11,3 +11,6 @@ build/
 # Sistema
 .DS_Store
 Thumbs.db
+
+# Local environment secrets
+.env
