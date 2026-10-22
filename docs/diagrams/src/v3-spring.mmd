@@ -1,47 +1,53 @@
 classDiagram
+    class AuthController {
+        +register(RegisterRequest) TokenResponse
+        +login(LoginRequest) TokenResponse
+    }
+    class AuthService {
+        -UserRepository users
+        -PasswordEncoder passwordEncoder
+        -JwtService jwtService
+        +register(RegisterRequest) TokenResponse
+        +login(LoginRequest) TokenResponse
+    }
+    class JwtService {
+        -JwtEncoder encoder
+        +issueToken(User) TokenResponse
+    }
     class ExpenseController {
-        <<RestController>>
-        -ExpenseService service
-        +create(ExpenseRequest request) ResponseEntity
-        +list() ResponseEntity
-        +findById(Long id) ResponseEntity
-        +update(Long id, ExpenseRequest request) ResponseEntity
-        +delete(Long id) ResponseEntity
+        +create(Jwt, ExpenseRequest) ExpenseResponse
+        +list(Jwt, month, year) List~ExpenseResponse~
+        +summarize(Jwt, month, year) MonthlySummaryResponse
+        +findById(Jwt, id) ExpenseResponse
+        +update(Jwt, id, ExpenseRequest) ExpenseResponse
+        +delete(Jwt, id) void
     }
     class ExpenseService {
-        <<Service>>
-        -ExpenseRepository repository
-        +create(ExpenseRequest request) ExpenseResponse
-        +listByUser(Long userId) List~ExpenseResponse~
-        +calculateMonthlyTotal(int month, int year) BigDecimal
-        +update(Long id, ExpenseRequest request) ExpenseResponse
-        +delete(Long id) void
-    }
-    class ExpenseRequest {
-        <<record>>
-        String description
-        BigDecimal amount
-        LocalDate date
-        Category category
-    }
-    class ExpenseResponse {
-        <<record>>
-        Long id
-        String description
-        BigDecimal amount
-        LocalDate date
-        Category category
+        -ExpenseRepository expenses
+        -UserRepository users
+        +create(ownerId, ExpenseRequest) ExpenseResponse
+        +list(ownerId, month, year) List~ExpenseResponse~
+        +summarize(ownerId, month, year) MonthlySummaryResponse
+        +update(ownerId, id, ExpenseRequest) ExpenseResponse
+        +delete(ownerId, id) void
     }
     class ExpenseRepository {
         <<interface>>
-        +findByUserId(Long userId) List~Expense~
+        +findAllByOwnerId(ownerId) List~Expense~
+        +findByIdAndOwnerId(id, ownerId) Optional~Expense~
+        +sumAmountByOwnerAndDateRange(ownerId, startDate, endDate) BigDecimal
+    }
+    class UserRepository {
+        <<interface>>
+        +findByEmail(email) Optional~User~
+        +existsByEmail(email) boolean
     }
     class User {
         <<Entity>>
         -Long id
         -String name
         -String email
-        -String password
+        -String passwordHash
     }
     class Expense {
         <<Entity>>
@@ -50,7 +56,7 @@ classDiagram
         -BigDecimal amount
         -LocalDate date
         -Category category
-        -User user
+        -User owner
     }
     class Category {
         <<enumeration>>
@@ -61,10 +67,15 @@ classDiagram
         HEALTH
         OTHER
     }
-    ExpenseController --> ExpenseService : uses
-    ExpenseController ..> ExpenseRequest : receives
+    AuthController --> AuthService
+    AuthService --> UserRepository
+    AuthService --> JwtService
+    ExpenseController --> ExpenseService
+    ExpenseController ..> ExpenseRequest : validates
     ExpenseController ..> ExpenseResponse : returns
-    ExpenseService --> ExpenseRepository : uses
-    ExpenseRepository ..> Expense : manages
+    ExpenseService --> ExpenseRepository
+    ExpenseService --> UserRepository
+    UserRepository ..> User : persists
+    ExpenseRepository ..> Expense : persists
     User "1" -- "*" Expense : owns
-    Expense --> Category : has
+    Expense --> Category
