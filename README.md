@@ -36,6 +36,10 @@ The API is available at http://localhost:8080; Swagger UI is at http://localhost
 
 For a local Maven run, start only PostgreSQL with docker compose up -d db, then run ./mvnw spring-boot:run (Windows: mvnw.cmd spring-boot:run). Configure DB_URL, DB_USERNAME, DB_PASSWORD, and JWT_SECRET in the shell first.
 
+## Automated tests
+
+Run the unit test suite with `./mvnw test` (Windows: `mvnw.cmd test`). The GitHub Actions workflow runs the same Maven verification on pushes to `main` and pull requests.
+
 The JDBC console version uses the same PostgreSQL database and its own expense_v2 table. Start the full Compose stack once so Flyway can create the table, then run:
 
 ~~~powershell
